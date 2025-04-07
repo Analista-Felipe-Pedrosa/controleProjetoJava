@@ -16,6 +16,6 @@ public class Sprint {
     private String nome;
     private Date dataInicio;
     private Date dataFim;
+    private UUID projetoId;
     private List<Tarefa> tarefas;
-
 }

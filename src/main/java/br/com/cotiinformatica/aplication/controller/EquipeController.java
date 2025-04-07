@@ -1,22 +1,31 @@
 package br.com.cotiinformatica.aplication.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import br.com.cotiinformatica.domain.dtos.equipe.EquipeGetDto;
+import br.com.cotiinformatica.domain.dtos.equipe.EquipePostDto;
+import br.com.cotiinformatica.domain.interfaces.EquipeService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "api/equipe")
 public class EquipeController {
 
-    @PostMapping
-    public void post(){
+    @Autowired
+    private EquipeService equipeService;
 
+    @PostMapping
+    public UUID post(@RequestBody @Valid EquipePostDto dto) {
+        return equipeService.criar(dto);
     }
 
-    @GetMapping
-    public void get(){
-
+    @GetMapping("{id}")
+    public List<EquipeGetDto> get(@PathVariable("id") UUID projetoId){
+        return equipeService.consultar(projetoId);
     }
 
 }
