@@ -1,20 +1,27 @@
 package br.com.cotiinformatica.aplication.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import br.com.cotiinformatica.domain.dtos.tarefa.TarefaGetDto;
+import br.com.cotiinformatica.domain.dtos.tarefa.TarefaPostDto;
+import br.com.cotiinformatica.domain.interfaces.TarefaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "api/tarefa")
 public class TarefaController {
-    @PostMapping
-    public void post(){
+    @Autowired
+    private TarefaService tarefaService;
 
+    @PostMapping
+    public UUID post(TarefaPostDto dto){
+        return tarefaService.criar(dto);
     }
 
-    @GetMapping
-    public void get(){
-
+    @GetMapping("{sprintId}")
+    public List<TarefaGetDto> get(@PathVariable("sprintId") UUID sprintIdd){
+        return tarefaService.consultar(sprintIdd);
     }
 }
